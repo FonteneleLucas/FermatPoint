@@ -2,15 +2,50 @@
 #include <stdlib.h>
 #include <math.h>
 
-void calc1(double a, double b, double c, double d, double r);
+//#include <iostream>
+//using namespace std;
+
+void calc1(double a, double b, double c, double d, double r, double * x1Pointer, double * y1Pointer, double * x2Pointer, double * y2Pointer);
 int main(){
-    calc1(2,6,4,2,4.4721);
-    calc1(2,6,8,4,6.3245);
-    calc1(4,2,8,4,4.4721);
+    double x1Return, x2Return, y1Return, y2Return;
+    calc1(2,6,4,2,4.4721, &x1Return, &y1Return, &x2Return, &y2Return); //AB
+    double intersectAB[4];
+    intersectAB[0] = x1Return;
+    intersectAB[1] = y1Return;
+    intersectAB[2] = x2Return;
+    intersectAB[3] = y2Return;
+
+    calc1(2,6,8,4,6.3245, &x1Return, &y1Return, &x2Return, &y2Return); //AC
+    double intersectAC[4];
+    intersectAC[0] = x1Return;
+    intersectAC[1] = y1Return;
+    intersectAC[2] = x2Return;
+    intersectAC[3] = y2Return;
+
+    calc1(4,2,8,4,4.4721, &x1Return, &y1Return, &x2Return, &y2Return); //CB
+    double intersectCB[4];
+    intersectCB[0] = x1Return;
+    intersectCB[1] = y1Return;
+    intersectCB[2] = x2Return;
+    intersectCB[3] = y2Return;
+
+    printf("Inter. circ. AB: (%.2f,%.2f);(%.2f,%.2f)\n", intersectAB[0], intersectAB[1], intersectAB[2], intersectAB[3]);
+    printf("Inter. circ. AC: (%.2f,%.2f);(%.2f,%.2f)\n", intersectAC[0], intersectAC[1], intersectAC[2], intersectAC[3]);
+    printf("Inter. circ. CB: (%.2f,%.2f);(%.2f,%.2f)\n", intersectCB[0], intersectCB[1], intersectCB[2], intersectCB[3]);
+
+
+
+    //calc1(2,6,4,2,4.4721); // AB
+    //calc1(2,6,8,4,6.3245); // AC
+    //calc1(4,2,8,4,4.4721); // CB
+
+    //AB ---> C
+    //AC ---> B
+    //CB ---> A
     return 0;
 }
 
-void calc1(double a, double b, double c, double d, double r){
+void calc1(double a, double b, double c, double d, double r, double * x1Pointer, double * y1Pointer, double * x2Pointer, double * y2Pointer){
     //EQ1
     double x1 = -2*a;
     double y1 = -2*b;
@@ -68,12 +103,21 @@ void calc1(double a, double b, double c, double d, double r){
     double cY2 = (xFinal * cX2) + resultFinal;
 
     //Retornando coordenadas
-    printf("Coordenadas de intersecao\n");
-    printf("C1(%.3f,%.3f)\n", cX1, cY1);
-    printf("C2(%.3f,%.3f)\n\n", cX2, cY2);
+    //printf("Coordenadas de intersecao\n");
+    //printf("C1(%.3f,%.3f)\n", cX1, cY1);
+    //printf("C2(%.3f,%.3f)\n\n", cX2, cY2);
 
-
-
+   /* static double intersect[4];
+    //static double intersect[4] = {0,0,0,0};
+    intersect[0] = cX1;
+    intersect[1] = cY1;
+    intersect[2] = cX2;
+    intersect[3] = cY2;
+    return intersect;*/
+    *x1Pointer = cX1;
+    *y1Pointer = cY1;
+    *x2Pointer = cX2;
+    *y2Pointer = cY2;
 
 }
 
