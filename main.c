@@ -14,9 +14,22 @@ int main(){
     bx = 4, by = 2; d_AC = 6.3245;
     cx = 8, cy = 4; d_CB = 4.4721;*/
 
-    ax = 1; ay = 2; d_AB = 4.4721; //= raio
+   /* ax = 1; ay = 2; d_AB = 4.4721; //= raio
     bx = 5, by = 4; d_AC = 2.2360;
-    cx = 3, cy = 1; d_CB = 3.6055;
+    cx = 3, cy = 1; d_CB = 3.6055;*/
+
+    printf("A:(x,y): ");
+    scanf("%lf %lf", &ax, &ay);
+    printf("B:(x,y): ");
+    scanf("%lf %lf", &bx, &by);
+    printf("C:(x,y): ");
+    scanf("%lf %lf", &cx, &cy);
+    printf("Distancia AB: ");
+    scanf("%lf", &d_AB);
+    printf("Distancia AC: ");
+    scanf("%lf", &d_AC);
+    printf("Distancia CB: ");
+    scanf("%lf", &d_CB);
 
     calc1(ax,ay,bx,by,d_AB, &x1Return, &y1Return, &x2Return, &y2Return); //AB
     double intersectAB[4];
