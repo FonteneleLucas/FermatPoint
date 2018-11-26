@@ -8,21 +8,31 @@
 void calc1(double a, double b, double c, double d, double r, double * x1Pointer, double * y1Pointer, double * x2Pointer, double * y2Pointer);
 int main(){
     double x1Return, x2Return, y1Return, y2Return;
-    calc1(2,6,4,2,4.4721, &x1Return, &y1Return, &x2Return, &y2Return); //AB
+    double ax, ay, bx, by, cx, cy, d_AB, d_AC, d_CB ;
+
+    /*ax = 2; ay = 6; d_AB = 4.4721; //= raio
+    bx = 4, by = 2; d_AC = 6.3245;
+    cx = 8, cy = 4; d_CB = 4.4721;*/
+
+    ax = 1; ay = 2; d_AB = 4.4721; //= raio
+    bx = 5, by = 4; d_AC = 2.2360;
+    cx = 3, cy = 1; d_CB = 3.6055;
+
+    calc1(ax,ay,bx,by,d_AB, &x1Return, &y1Return, &x2Return, &y2Return); //AB
     double intersectAB[4];
     intersectAB[0] = x1Return;
     intersectAB[1] = y1Return;
     intersectAB[2] = x2Return;
     intersectAB[3] = y2Return;
 
-    calc1(2,6,8,4,6.3245, &x1Return, &y1Return, &x2Return, &y2Return); //AC
+    calc1(ax,ay,cx,cy,d_AC, &x1Return, &y1Return, &x2Return, &y2Return); //AC
     double intersectAC[4];
     intersectAC[0] = x1Return;
     intersectAC[1] = y1Return;
     intersectAC[2] = x2Return;
     intersectAC[3] = y2Return;
 
-    calc1(4,2,8,4,4.4721, &x1Return, &y1Return, &x2Return, &y2Return); //CB
+    calc1(bx,by,cx,cy,d_CB, &x1Return, &y1Return, &x2Return, &y2Return); //CB
     double intersectCB[4];
     intersectCB[0] = x1Return;
     intersectCB[1] = y1Return;
