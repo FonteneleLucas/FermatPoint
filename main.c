@@ -2,43 +2,40 @@
 #include <stdlib.h>
 #include <math.h>
 
-//#include <iostream>
-//using namespace std;
-
 void calc1(double a, double b, double c, double d, double r, double * x1Pointer, double * y1Pointer, double * x2Pointer, double * y2Pointer);
 double distancia(double x1,double y1,double x2,double y2);
+void funcaoReta(double x1R, double y1R, double x2R, double y2R, double * xRetaReturn, double * yRetaReturn, double * iRetaReturn);
+void calculoP();
+
+double x1Return, x2Return, y1Return, y2Return;
+    double ax, ay, bx, by, cx, cy, d_AB, d_AC, d_CB;
+    double xReta1, yReta1, iReta1, xReta2, yReta2, iReta2, xReta3, yReta3, iReta3;
+
 
 int main(){
-    double x1Return, x2Return, y1Return, y2Return;
-    double ax, ay, bx, by, cx, cy, d_AB, d_AC, d_CB ;
 
-    /*ax = 2; ay = 6; d_AB = 4.4721; //= raio
-    bx = 4, by = 2; d_AC = 6.3245;
-    cx = 8, cy = 4; d_CB = 4.4721;*/
 
     /*ax = 1; ay = 2; d_AB = 4.4721; //= raio
     bx = 5, by = 4; d_AC = 2.2360;
-    cx = 3, cy = 1; d_CB = 3.6055;
-*/
+    cx = 3, cy = 1; d_CB = 3.6055;*/
+
     printf("A:(x,y): ");
     scanf("%lf %lf", &ax, &ay);
     printf("B:(x,y): ");
     scanf("%lf %lf", &bx, &by);
     printf("C:(x,y): ");
     scanf("%lf %lf", &cx, &cy);
-   /* printf("Distancia AB: ");
-    scanf("%lf", &d_AB);
-    printf("Distancia AC: ");
-    scanf("%lf", &d_AC);
-    printf("Distancia CB: ");
-    scanf("%lf", &d_CB);*/
+
+
+
     d_AB = distancia(ax, ay, bx, by);
     d_AC = distancia(ax, ay, cx, cy);
     d_CB =  distancia(cx, cy, bx, by);
 
+    //Pega os valores
     calc1(ax,ay,bx,by,d_AB, &x1Return, &y1Return, &x2Return, &y2Return); //AB
     double intersectAB[4];
-
+    //Seleciona coordenadas uteis
     if(distancia(x1Return, y1Return, cx, cy) > distancia(x2Return, y2Return, cx, cy)){
         intersectAB[0] = x1Return;
         intersectAB[1] = y1Return;
@@ -52,7 +49,7 @@ int main(){
 
     if(distancia(x1Return, y1Return, bx, by) > distancia(x2Return, y2Return, bx, by)){
         intersectAC[0] = x1Return;
-        intersectAB[1] = y1Return;
+        intersectAC[1] = y1Return;
     }else{
         intersectAC[0] = x2Return;
         intersectAC[1] = y2Return;
@@ -69,19 +66,20 @@ int main(){
         intersectCB[1] = y2Return;
     }
 
-    printf("Inter. circ. AB: (%.2f,%.2f);\n", intersectAB[0], intersectAB[1]);
+    /*printf("Inter. circ. AB: (%.2f,%.2f);\n", intersectAB[0], intersectAB[1]);
     printf("Inter. circ. AC: (%.2f,%.2f);\n", intersectAC[0], intersectAC[1]);
-    printf("Inter. circ. CB: (%.2f,%.2f);\n", intersectCB[0], intersectCB[1]);
-
-
-
-    //calc1(2,6,4,2,4.4721); // AB
-    //calc1(2,6,8,4,6.3245); // AC
-    //calc1(4,2,8,4,4.4721); // CB
+    printf("Inter. circ. CB: (%.2f,%.2f);\n", intersectCB[0], intersectCB[1]);*/
 
     //AB ---> C
     //AC ---> B
     //CB ---> A
+
+    //Calcula as funçoes da reta
+    funcaoReta(intersectAB[0], intersectAB[1],cx, cy, &xReta1, &yReta1, &iReta1);
+    funcaoReta(intersectAC[0], intersectAC[1],bx,by, &xReta2, &yReta2, &iReta2);
+    //Exibe o ponto de Fermat
+    calculoP();
+
     return 0;
 }
 
@@ -147,13 +145,6 @@ void calc1(double a, double b, double c, double d, double r, double * x1Pointer,
     //printf("C1(%.3f,%.3f)\n", cX1, cY1);
     //printf("C2(%.3f,%.3f)\n\n", cX2, cY2);
 
-   /* static double intersect[4];
-    //static double intersect[4] = {0,0,0,0};
-    intersect[0] = cX1;
-    intersect[1] = cY1;
-    intersect[2] = cX2;
-    intersect[3] = cY2;
-    return intersect;*/
     *x1Pointer = cX1;
     *y1Pointer = cY1;
     *x2Pointer = cX2;
@@ -163,4 +154,21 @@ void calc1(double a, double b, double c, double d, double r, double * x1Pointer,
 double distancia(double x1,double y1,double x2,double y2){
     double dist = ((x2 - x1)*(x2 - x1)) + ((y2 - y1)*(y2 - y1));
     return sqrt(dist);
+}
+
+void funcaoReta(double x1R, double y1R, double x2R, double y2R, double * xRetaReturn, double * yRetaReturn, double * iRetaReturn){
+    *xRetaReturn = y1R - y2R;
+    *yRetaReturn = x2R - x1R;
+    *iRetaReturn = ((x1R*y2R)-(y1R*x2R))*-1;
+}
+
+void calculoP(){
+    double det = (xReta1*yReta2) - (yReta1*xReta2);
+
+    double dx = (iReta1 * yReta2) - (yReta1*iReta2);
+    double dy = (xReta1 * iReta2) - (iReta1*xReta2);
+    double xP = dx/det;
+    double yP = dy/det;
+
+    printf("\n\tP(%.2f,%.2f)\n", xP, yP);
 }
